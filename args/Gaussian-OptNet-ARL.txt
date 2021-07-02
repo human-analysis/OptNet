@@ -1,0 +1,110 @@
+[Arguments]
+
+port = 8097
+env = main
+same_env = Yes
+log_type = progressbar
+save_results = Yes
+
+################################################ Gaussian dataset
+
+dataroot = ./data/Gaussian/
+
+dataset_train = Gaussian
+dataset_test = Gaussian
+
+nclasses_A = 1
+nclasses_T = 2
+
+total_classes = 2
+ndim = 2
+model_type_E = E_Gaussian
+model_type_EA = EA
+model_type_ET = ET
+model_type_A = Adversary_Gaussian
+model_type_T = Target_Gaussian
+hdlayers = 8
+
+r = 1024
+##### due to instant normalization one dimension will be lost
+
+batch_size_train = 500
+batch_size = 500
+batch_size_test = 1000
+
+################################### Kernelization
+
+###### linear
+#loss_type_E = Projection
+
+###### polynomial
+#loss_type_E = Projection_poly
+#c = 0.5
+#d = 5
+
+###### IMQ
+#loss_type_E = Projection_IMQ
+#c = 1
+
+####### Gaussian
+loss_type_E = Projection_gauss
+sigma = 1
+
+
+##################################### General setting
+
+adverserial_type = OptNet
+
+loss_type_ED = Regression
+loss_type_ET = Regression
+loss_type_A = Regression
+loss_type_T = Regression
+
+evaluation_type_EA = Top1Classification
+evaluation_type_A = Top1Classification
+evaluation_type_ET = Top1Classification
+evaluation_type_T = Top1Classification
+
+manual_seed = 1
+
+# alpha = [0, 0.1, 0.2, 0.3, 0.4, 0.45, 0.5, 0.51, 0.52, 0.53, 0.535, 0.537, 0.538, 0.539, 0.54, 0.9]
+alpha = [0.44]
+
+
+niters = 5
+reg = 0.0001
+nepochs_E = 600
+nepochs = 500
+
+learning_rate_E = 1e-3
+optim_method_E = Adam
+optim_options_E = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_E = ExponentialLR
+scheduler_options_E = {"gamma": 0.999}
+
+learning_rate_EA = 1e-3
+optim_method_EA = Adam
+optim_options_EA = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_EA = ExponentialLR
+scheduler_options_EA = {"gamma": 0.999}
+
+learning_rate_ET = 1e-3
+optim_method_ET = Adam
+optim_options_ET = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_ET = ExponentialLR
+scheduler_options_ET = {"gamma": 0.999}
+
+learning_rate_T = 1e-3
+optim_method_T = Adam
+optim_options_T = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_T = ExponentialLR
+scheduler_options_T = {"gamma": 0.999}
+
+learning_rate_A = 1e-3
+optim_method_A = Adam
+optim_options_A = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_A = ExponentialLR
+scheduler_options_A = {"gamma": 0.999}
+
+ngpu = 1
+nthreads = 1

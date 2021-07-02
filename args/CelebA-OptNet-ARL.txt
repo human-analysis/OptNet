@@ -1,0 +1,110 @@
+[Arguments]
+
+port = 8097
+env = main
+same_env = Yes
+log_type = progressbar
+save_results = Yes
+
+#################################################### CelebA
+dataset_root_test = /research/hal-datastore/datasets/processed/faces/aligned_112_96_mtcnn/CelebA/
+dataset_root_train = /research/hal-datastore/datasets/processed/faces/aligned_112_96_mtcnn/CelebA/
+dataroot = ./data/celeba/
+
+dataset_train = CelebA_Privacy
+dataset_test = CelebA_Privacy
+input_filename_train = ./data/celeba/celeba-training.csv
+input_filename_test = ./data/celeba/celeba-evaluation.csv
+
+resolution_high = 112
+resolution_wide = 96
+
+nclasses_A = 2
+nclasses_T = 2
+total_classes = 2
+
+model_type_E = preactresnet18
+model_options_E = {"nfilters": 16, "r": 2}
+r = 2
+##### due to instant normalization one dimension will be lost
+
+model_type_EA = EA
+model_type_ET = ET
+model_type_A = Adversary
+model_type_T = Target
+hdlayers = 8
+batch_size_train = 200
+batch_size_test = 250
+
+
+################################### Kernelization
+
+###### linear
+#loss_type_E = Projection
+
+###### polynomial
+#loss_type_E = Projection_poly
+#c = 0.5
+#d = 5
+
+####### Gaussian
+loss_type_E = Projection_gauss
+sigma = 1
+
+
+##################################### General setting
+
+adverserial_type = OptNet
+
+loss_type_ED = Regression
+loss_type_ET = Regression
+loss_type_A = Regression
+loss_type_T = Regression
+
+evaluation_type_EA = Top1Classification
+evaluation_type_A = Top1Classification
+evaluation_type_ET = Top1Classification
+evaluation_type_T = Top1Classification
+
+manual_seed = 1
+
+alpha = [0, 0.1, 0.3 ,0.5, 0.7, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.94]
+
+
+niters = 5
+reg = 0.0001
+nepochs_E = 6
+nepochs = 7
+
+learning_rate_E = 3e-4
+optim_method_E = Adam
+optim_options_E = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_E = ExponentialLR
+scheduler_options_E = {"gamma": 0.999}
+
+learning_rate_EA = 3e-4
+optim_method_EA = Adam
+optim_options_EA = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_EA = ExponentialLR
+scheduler_options_EA = {"gamma": 0.999}
+
+learning_rate_ET = 3e-4
+optim_method_ET = Adam
+optim_options_ET = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_ET = ExponentialLR
+scheduler_options_ET = {"gamma": 0.999}
+
+learning_rate_T = 3e-4
+optim_method_T = Adam
+optim_options_T = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_T = ExponentialLR
+scheduler_options_T = {"gamma": 0.999}
+
+learning_rate_A = 3e-4
+optim_method_A = Adam
+optim_options_A = {"weight_decay": 0.0002, "betas": [0.9, 0.999]}
+scheduler_method_A = ExponentialLR
+scheduler_options_A = {"gamma": 0.999}
+
+ngpu = 1
+nthreads = 1
